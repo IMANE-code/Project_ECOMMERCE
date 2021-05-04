@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace produit.Models
 {
-    public class ListProduit
+    public class ListProduit 
     {
-        public int Id { get; set; }
-
-        //[ForeignKey("IdProduit,IdPanier")]
-        //public int IdProduit { get; set; }
-        //public int IdPanier { get; set; }
-
+        public int Id { get; set;}
+        public List<Produit> produits { get; set; }
     }
 }

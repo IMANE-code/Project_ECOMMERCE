@@ -13,8 +13,6 @@ namespace produit.Models
         public int Id { get; set; }
         public string NameCatégorie { get; set; }
         public string ImageCatégorie { get; set; }
-        //[ForeignKey("IdProd")]
-        //public int IdProd { get; set; }
-        //public List<Produit>  produits { get; set; }
+       
     }
 }

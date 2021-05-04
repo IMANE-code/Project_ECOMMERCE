@@ -21,7 +21,7 @@ namespace produit.Data
         public DbSet<Commande> commandes { get; set; }
         public DbSet<Panier> paniers { get; set; }
         public DbSet<Image> images { get; set; }
-
+        public DbSet<ListProduit> listProduits { get; set; }
         public DbSet<User> User { get; set; }
     }
 }

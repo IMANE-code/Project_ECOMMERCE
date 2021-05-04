@@ -58,8 +58,8 @@ namespace produit
             services.AddScoped<IProduitRepository, ProduitRepository>();
             services.AddScoped<IPanierRepository, PanierRepository>();
             services.AddScoped<ICommandeRepository, CommandeRepository>();
-            services.AddScoped<IImageRepository, ImageRepository>();
-
+            services.AddScoped<IImageRepository, ImageRepository>(); 
+            services.AddScoped<IlistProduitRepository, ListProduitRepository>();
 
 
 

@@ -82,6 +82,10 @@ namespace produit.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -133,6 +137,8 @@ namespace produit.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -240,10 +246,18 @@ namespace produit.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int>("IdlistProd")
+                        .HasColumnType("int");
+
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("listProduitId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("listProduitId");
 
                     b.ToTable("commandes");
                 });
@@ -255,14 +269,21 @@ namespace produit.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("ProduitId")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
+
+                    b.ToTable("images");
+                });
+
+            modelBuilder.Entity("produit.Models.ListProduit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProduitId");
-
-                    b.ToTable("images");
+                    b.ToTable("listProduits");
                 });
 
             modelBuilder.Entity("produit.Models.Panier", b =>
@@ -287,7 +308,10 @@ namespace produit.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("CatId")
+                    b.Property<int>("CatégorieId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ListProduitId")
                         .HasColumnType("int");
 
                     b.Property<string>("NameProduit")
@@ -296,9 +320,34 @@ namespace produit.Migrations
                     b.Property<float>("PrixProduit")
                         .HasColumnType("real");
 
+                    b.Property<int>("Quantite")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("CatégorieId");
+
+                    b.HasIndex("ListProduitId");
+
                     b.ToTable("produits");
+                });
+
+            modelBuilder.Entity("produit.ModelAuth.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ProfilePhoto")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -352,15 +401,33 @@ namespace produit.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("produit.Models.Image", b =>
+            modelBuilder.Entity("produit.Models.Commande", b =>
                 {
-                    b.HasOne("produit.Models.Produit", "Produit")
+                    b.HasOne("produit.Models.ListProduit", "listProduit")
                         .WithMany()
-                        .HasForeignKey("ProduitId")
+                        .HasForeignKey("listProduitId");
+
+                    b.Navigation("listProduit");
+                });
+
+            modelBuilder.Entity("produit.Models.Produit", b =>
+                {
+                    b.HasOne("produit.Models.Catégorie", "catégorie")
+                        .WithMany()
+                        .HasForeignKey("CatégorieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Produit");
+                    b.HasOne("produit.Models.ListProduit", null)
+                        .WithMany("produits")
+                        .HasForeignKey("ListProduitId");
+
+                    b.Navigation("catégorie");
+                });
+
+            modelBuilder.Entity("produit.Models.ListProduit", b =>
+                {
+                    b.Navigation("produits");
                 });
 #pragma warning restore 612, 618
         }

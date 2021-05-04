@@ -3,7 +3,7 @@ import './App.css';
 import {Register} from './Register';
 import {Navigation} from './Navigation';
 import {BrowserRouter, Route, Switch}from 'react-router-dom';
-import {Produit} from './Produit';
+import Produit from './Produit';
 import {Home} from './Home'
 
 function App() {

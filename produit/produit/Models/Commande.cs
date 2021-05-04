@@ -12,8 +12,10 @@ namespace produit.Models
         [Key]
         public  int Id { get; set;}
         public string Status { get; set; }
-        //[ForeignKey("IdProd")]
-        //public int IdProd { get; set; }
-        //public List<Produit> produits { get; set; }
+
+        [ForeignKey("IdlistProd")]
+
+        public int IdlistProd { get; set; }
+        public ListProduit listProduit { get; set; }
     }
 }

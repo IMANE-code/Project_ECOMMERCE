@@ -11,11 +11,18 @@ namespace produit.Models
     public class Produit
     {
         [Key]
+        [ForeignKey("CatégorieId")]
+
         public int Id { get; set; }
+
         public string NameProduit { get; set; }
+
         public float PrixProduit { get; set; }
-        //[ForeignKey("CatId")]
-        //public int CatId { get; set; }
-        //public Catégorie catégorie { get; set; }
+
+        public int Quantite { get; set; }
+
+        public int CatégorieId { get; set; }
+
+        public Catégorie catégorie { get; set; }
     }
 }

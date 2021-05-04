@@ -18,6 +18,7 @@ namespace produit.Repositorie
 
         public async Task<Produit> Create(Produit produit)
         {
+
             _context.produits.Add(produit);
             await _context.SaveChangesAsync();
             return produit;
