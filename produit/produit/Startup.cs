@@ -126,10 +126,11 @@ namespace produit
             //    RequestPath = new PathString("/StaticFiles")
             //});
 
-            app.UseStaticFiles();
+           
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseStaticFiles();
 
             app.UseCors("CorsPolicy");
 

@@ -5,16 +5,18 @@ import axios from 'axios'
 
 function AddProduit() {
 
-    const [Produit, setProduct] = useState('')
+    const [produit, setProduit] = useState('')
     const [prix, setPrix] = useState('')
 
 
 
     function handleSubmit(){
-        // axios.post('https://localhost:44318/api/Produits/', {Produit, prix} )
+        // axios.post('https://localhost:44318/api/Produits', { Produit })
         // .then(response => {
         //     console.log(response)
         // })
+        // .catch(err => { console.log(err) })
+
         fetch("https://localhost:44318/api/Produits",{
             method:'POST',
             headers:{
@@ -22,7 +24,7 @@ function AddProduit() {
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({
-                produit: Produit
+                produit: produit
             })
         })
         .then(res=>res.json())
@@ -51,7 +53,7 @@ function AddProduit() {
             <form onSubmit={handleSubmit}>
                 <div class="form-group">
                     <label class="col-form-label">Add products:</label>
-                    <input type="text" class="form-control" onChange={(e) => setProduct(e.target.value)} />
+                    <input type="text" class="form-control" onChange={(e) => setProduit(e.target.value)} />
                 </div>
                 <div class="form-group">
                     <label class="col-form-label">Price:</label>

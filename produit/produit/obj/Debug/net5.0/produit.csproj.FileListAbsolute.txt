@@ -250,3 +250,4 @@ C:\Users\Youcode\Desktop\Project_ECOMMERCE\produit\produit\obj\Debug\net5.0\prod
 C:\Users\Youcode\Desktop\Project_ECOMMERCE\produit\produit\obj\Debug\net5.0\ref\produit.dll
 C:\Users\Youcode\Desktop\Project_ECOMMERCE\produit\produit\obj\Debug\net5.0\produit.pdb
 C:\Users\Youcode\Desktop\Project_ECOMMERCE\produit\produit\obj\Debug\net5.0\produit.genruntimeconfig.cache
+C:\Users\Youcode\Desktop\Project_ECOMMERCE\produit\produit\bin\Debug\net5.0\libman.json
