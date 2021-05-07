@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="twitter-bootstrap/css/bootstrap-grid.css" rel="stylesheet" />
+    <link href="twitter-bootstrap/css/bootstrap-reboot.css" rel="stylesheet" />
+    <script src="twitter-bootstrap/js/bootstrap.js"></script>
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="jquery/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#registerbtn').click(function () {
+
+                console.log("test")
+
+                var firstName = $('#FirstName').val();
+                var lastName = $('#LastName').val();
+                var username = $('#Username').val();
+                var email = $('#Email').val();
+                var password = $('#Password').val();
+
+
+
+                var data = { FirstName: firstName, LastName: lastName, Username: username, Email: email, Password: password };
+
+                console.log(data);
+
+                $.ajax({
+                    url: 'https://localhost:44388/api/Auth/register',
+                    data: JSON.stringify(data),
+                    method: 'Post',
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        alert('data is added :)')
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container  card bg-light mt-5 ">
+        <article class="card-body mx-auto col-4" >
+            <h4 class="card-title mt-3 text-center">Create Account</h4>
+            <form>
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="First Name" type="text" name="FirstName" id="FirstName" required>
+                </div>
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Last Name" type="text" name="LastName" id="LastName" required>
+                </div>
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Username" type="text" name="Username" id="Username" required>
+                </div>
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Email address" type="email" name="Email" id="Email" required>
+                </div>
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Create password" type="password" name="Password" id="Password" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="registerbtn btn btn-primary btn-block" id="registerbtn"> Create Account  </button>
+                </div>
+
+                <p class="text-center">Have an account? <a href="">Log In</a> </p>
+            </form>
+        </article>
+    </div>
+
+</body>
+</html>
+
