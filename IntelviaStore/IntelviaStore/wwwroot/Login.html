@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="twitter-bootstrap/css/bootstrap-grid.css" rel="stylesheet" />
+    <link href="twitter-bootstrap/css/bootstrap-reboot.css" rel="stylesheet" />
+    <script src="twitter-bootstrap/js/bootstrap.js"></script>
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="jquery/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#loginbtn').click(function () {
+
+                console.log("test")
+                
+                var email = $('#Email').val();
+                var password = $('#Password').val();
+
+
+
+                var data = {Email: email, Password: password };
+
+                console.log(data);
+
+                $.ajax({
+                    url: 'https://localhost:44388/api/Auth/token',
+                    data: JSON.stringify(data),
+                    method: 'Post',
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        alert('data is added :)')
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container  card bg-light mt-5 ">
+        <article class="card-body mx-auto col-4">
+            <h4 class="card-title mt-3 text-center">Login</h4>
+            <form>
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Email address" type="email" name="Email" id="Email" required>
+                </div>
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Create password" type="password" name="Password" id="Password" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="loginbtn btn btn-primary btn-block" id="loginbtn"> Login  </button>
+                </div>
+
+            </form>
+        </article>
+    </div>
+
+</body>
+</html>
