@@ -25,8 +25,9 @@
                             var nameProduit = val.nameProduit;
                             var prixProduit = val.prixProduit;
                             var quantite = val.quantite;
-                            var catégorieId = val.catégorieId;
-                            listProd.append('<tr><td>' + id + '</td> <td>' + nameProduit + '</td> <td>' + prixProduit + '</td><td>' + quantite + '</td><td>' + catégorieId + '</td><td><a href="EditProduit.html" class="btn-success">Edit</a></td></tr>')
+                            var categorie = val.catégorie.nameCatégorie;
+                            console.log(categorie);
+                            listProd.append('<tr><td>' + id + '</td> <td>' + nameProduit + '</td> <td>' + prixProduit + '</td><td>' + quantite + '</td><td>' + categorie + '</td><td><a href="EditProduit.html" class="btn btn-success">Edit</a> || <a href="EditProduit.html" class="btn btn-danger">Delete</a></td></tr>')
                         });
                     }, error: function (err) {
                         console.log(err)
@@ -51,7 +52,7 @@
                 <th scope="col">nameProduit</th>
                 <th scope="col">prixProduit</th>
                 <th scope="col">quantite</th>
-                <th scope="col">catégorieId</th>
+                <th scope="col">catégorie</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>

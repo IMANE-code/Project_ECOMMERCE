@@ -33,7 +33,7 @@ namespace produit.Repositorie
 
         public async Task<IEnumerable<Produit>> Get()
         {
-            return await _context.produits.ToListAsync();
+            return await _context.produits.Include(s=>s.catégorie).ToListAsync();
         }
 
         public async Task<Produit> Get(int id)

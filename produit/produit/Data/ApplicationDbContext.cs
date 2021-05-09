@@ -14,7 +14,7 @@ namespace produit.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
           : base(options)
         {
-            Database.EnsureCreated();
+            
         }
         public DbSet<Produit> produits { get; set; }
         public DbSet<Catégorie> catégories  { get; set; }
@@ -22,6 +22,6 @@ namespace produit.Data
         public DbSet<Panier> paniers { get; set; }
         public DbSet<Image> images { get; set; }
         public DbSet<ListProduit> listProduits { get; set; }
-        public DbSet<User> User { get; set; }
+        //public DbSet<User> User { get; set; }
     }
 }

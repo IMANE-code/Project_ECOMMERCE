@@ -34,6 +34,8 @@ namespace produit
             Configuration = configuration;
         }
 
+        readonly string MyAllowspicificorigin = "_MyAllowspicificorigin";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -102,9 +104,18 @@ namespace produit
             });
 
             services.AddCors(opt => {
+                opt.AddPolicy("_MyAllowspicificorigin",
+                    builder => builder
+
+                    .AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
+
+            services.AddCors(opt => {
                 opt.AddPolicy("CorsPolicy", policy => {
                     policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
                 });
+
+                
             });
 
         }
@@ -133,6 +144,8 @@ namespace produit
             app.UseStaticFiles();
 
             app.UseCors("CorsPolicy");
+
+            app.UseCors("_MyAllowspicificorigin");
 
             app.UseAuthorization();
 
