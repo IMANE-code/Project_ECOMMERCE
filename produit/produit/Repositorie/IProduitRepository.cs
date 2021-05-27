@@ -10,7 +10,8 @@ namespace produit.Repositorie
     {
         Task<IEnumerable<Produit>> Get();
         Task<Produit> Get(int id);
-        Task<Produit> Create(Produit produit);
+        //Task<Produit> Create(Produit produit);
+        void addProduit(Produit produit);
         Task Update(Produit produit);
         Task Delete(int id);
     }

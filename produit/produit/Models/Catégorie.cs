@@ -11,8 +11,10 @@ namespace produit.Models
     {
         [Key]
         public int Id { get; set; }
+
         public string NameCatégorie { get; set; }
-        public string ImageCatégorie { get; set; }
+
+        public byte[] ImageCatégorie { get; set; } 
        
     }
 }

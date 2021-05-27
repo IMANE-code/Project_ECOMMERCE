@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "Add produit";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#registerbtn').click(function () {
+            
+            var nameProduit = $('#nameProduit').val();
+            var prixProduit = $('#prixProduit').val();
+            var quantite = $('#quantite').val();
+            var catégorieId = $('#catégorieId').val();
+
+            console.log({ NameProduit: nameProduit, PrixProduit: prixProduit, Quantite: quantite, CatégorieId: catégorieId })
+
+            var data = { NameProduit: nameProduit, PrixProduit: prixProduit, Quantite: quantite, CatégorieId: catégorieId };
+            $.ajax({
+                url: 'https://localhost:44318/api/produits',
+                data: JSON.stringify(data),
+                method: 'Post',
+                dataType: 'json',
+                cors: true,
+                
+                contentType: "application/json ; ; charset=utf-8",
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                },
+                success: function (data) {
+                    console.log(data);
+                    alert('add');
+                    window.location = 'Produit.html';
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        });
+    });
+
+
+    $(document).ready(function () {
+
+        var categorie = $('#categorie');
+
+        $(document).ready(function () {
+            $.ajax({
+
+                url: 'https://localhost:44318/api/Catégories/GetAll',
+                method: 'get',
+                contentType: "application/x-www-form-urlencoded",
+                success: function (data) {
+                    
+                    categorie.empty();
+                    $.each(data, function (index, val) {
+                        console.log(val.nameCatégorie);
+
+                        
+                        var categ = val.nameCatégorie;
+
+                        categorie.append('<option class="form-control" value="' + categ +'">'+categ+'</option>')
+                    });
+                }, error: function (err) {
+                    console.log(err)
+
+                }
+            })
+        })
+    });
+
+</script>
+
+
+<div class="container">
+    <h1>Produit</h1>
+    <hr>
+    <div class="form-group">
+        <select class="form-control" id="option">
+        </select>
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="NameProduit" name="NameProduit" id="nameProduit" required>
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="Enter PrixProduit" name="prixProduit" id="prixProduit" required>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Quantite" name="quantite" id="quantite" required>
+    </div>
+    <div class="form-group">
+        <select name="cars" id="categorie">
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="file" class="form-control"  name="file" id="file" required>
+    </div>
+
+
+    <button class="btn btn-primary" id="registerbtn">Add product</button>
+</div>
+
+
+
+
+
+
+
+

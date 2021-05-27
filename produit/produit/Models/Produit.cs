@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace produit.Models
 {
+    
     public class Produit
     {
         [Key]
@@ -20,6 +21,8 @@ namespace produit.Models
         public float PrixProduit { get; set; }
 
         public int Quantite { get; set; }
+
+        public string ImagePath { get; set; }
 
         public int CatégorieId { get; set; }
 

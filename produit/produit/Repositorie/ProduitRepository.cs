@@ -16,13 +16,19 @@ namespace produit.Repositorie
             _context = context;
         }
 
-        public async Task<Produit> Create(Produit produit)
+        public void addProduit(Produit produit)
         {
-
             _context.produits.Add(produit);
-            await _context.SaveChangesAsync();
-            return produit;
+            _context.SaveChanges();
         }
+
+        //public async Task<Produit> Create(Produit produit)
+        //{
+
+        //    _context.produits.Add(produit);
+        //    await _context.SaveChangesAsync();
+        //    return produit;
+        //}
 
         public async Task Delete(int id)
         {
@@ -38,7 +44,7 @@ namespace produit.Repositorie
 
         public async Task<Produit> Get(int id)
         {
-            return await _context.produits.FindAsync(id);
+            return await _context.produits.Include(s=>s.catégorie).FirstOrDefaultAsync(i=>i.Id==id);
         }
 
         public async Task Update(Produit produit)

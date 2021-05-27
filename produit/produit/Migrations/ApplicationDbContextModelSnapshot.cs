@@ -222,8 +222,8 @@ namespace produit.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("ImageCatégorie")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("ImageCatégorie")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("NameCatégorie")
                         .HasColumnType("nvarchar(max)");
@@ -304,6 +304,9 @@ namespace produit.Migrations
 
                     b.Property<int>("CatégorieId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ListProduitId")
                         .HasColumnType("int");

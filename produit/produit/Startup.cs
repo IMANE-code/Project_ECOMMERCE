@@ -34,7 +34,7 @@ namespace produit
             Configuration = configuration;
         }
 
-        readonly string MyAllowspicificorigin = "_MyAllowspicificorigin";
+        //readonly string MyAllowspicificorigin = "_MyAllowspicificorigin";
 
         public IConfiguration Configuration { get; }
 
@@ -104,19 +104,16 @@ namespace produit
             });
 
             services.AddCors(opt => {
-                opt.AddPolicy("_MyAllowspicificorigin",
+                opt.AddPolicy("CorsPolicy",
                     builder => builder
 
-                    .AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                    .AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+                    
+                    
+                    );
             });
 
-            services.AddCors(opt => {
-                opt.AddPolicy("CorsPolicy", policy => {
-                    policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
-                });
-
-                
-            });
+            
 
         }
 

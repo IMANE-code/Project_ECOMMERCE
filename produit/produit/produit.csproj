@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Produit.html" />
+    <Content Include="Controller\Produit.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\Scripts\JQuery.js" />
   </ItemGroup>
 
@@ -25,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Views\" />
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
 </Project>

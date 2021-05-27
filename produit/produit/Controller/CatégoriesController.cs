@@ -21,7 +21,7 @@ namespace produit.Controller
             _catégorieRepository = catégorieRepository;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IEnumerable<Catégorie>> GetCatégories()
         {
             return await _catégorieRepository.Get();
@@ -33,11 +33,12 @@ namespace produit.Controller
             return await _catégorieRepository.Get(id);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Catégorie>> PostCatégories([FromBody] Catégorie catégorie)
+        [HttpPost("addcategorie")]
+        public async Task<ActionResult<Catégorie>> PostCatégories([FromForm] Catégorie catégorie, List<IFormFile> image)
         {
-            var newCatégorie = await _catégorieRepository.Create(catégorie);
-            return CreatedAtAction(nameof(GetCatégories), new { id = newCatégorie.Id }, newCatégorie);
+            await _catégorieRepository.Create(catégorie,image);
+
+            return Ok(catégorie);
         }
 
         [HttpPut]

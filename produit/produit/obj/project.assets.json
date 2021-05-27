@@ -6134,11 +6134,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrateur\\OneDrive\\Bureau\\Project_ECOMMERCE\\produit\\produit\\produit.csproj",
+      "projectUniqueName": "C:\\Users\\Administrateur\\OneDrive\\Bureau\\test\\Project_ECOMMERCE\\produit\\produit\\produit.csproj",
       "projectName": "produit",
-      "projectPath": "C:\\Users\\Administrateur\\OneDrive\\Bureau\\Project_ECOMMERCE\\produit\\produit\\produit.csproj",
+      "projectPath": "C:\\Users\\Administrateur\\OneDrive\\Bureau\\test\\Project_ECOMMERCE\\produit\\produit\\produit.csproj",
       "packagesPath": "C:\\Users\\Administrateur\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrateur\\OneDrive\\Bureau\\Project_ECOMMERCE\\produit\\produit\\obj\\",
+      "outputPath": "C:\\Users\\Administrateur\\OneDrive\\Bureau\\test\\Project_ECOMMERCE\\produit\\produit\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

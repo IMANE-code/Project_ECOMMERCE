@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using produit.Data;
 using produit.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,10 +18,17 @@ namespace produit.Repositorie
             _context = context;
         }
 
-        public async Task<Catégorie> Create(Catégorie catégorie)
+        public async Task<Catégorie> Create(Catégorie catégorie, List<IFormFile> image)
         {
-            _context.catégories.Add(catégorie);
-            await _context.SaveChangesAsync();
+            foreach (var file in image)
+            {
+                MemoryStream ms = new();
+                await file.CopyToAsync(ms);
+                catégorie.ImageCatégorie = ms.ToArray();
+                _context.catégories.Add(catégorie);
+                await _context.SaveChangesAsync();
+            }
+
             return catégorie;
         }
 

@@ -1,4 +1,5 @@
-﻿using produit.Models;
+﻿using Microsoft.AspNetCore.Http;
+using produit.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace produit.Repositorie
     {
         Task<IEnumerable<Catégorie>> Get();
         Task<Catégorie> Get(int id);
-        Task<Catégorie> Create(Catégorie catégorie);
+        Task<Catégorie> Create(Catégorie catégorie, List<IFormFile> image);
         Task Update(Catégorie catégorie);
         Task Delete(int id);
     }

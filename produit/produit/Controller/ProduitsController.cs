@@ -27,72 +27,73 @@ namespace produit.Controller
             _env = env;
         }
 
-        [HttpGet]
+        [HttpGet("getall")]
         public async Task<IEnumerable<Produit>> GetProduits()
         {
             return await _produitRepository.Get();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("getbyid")]
         public async Task<ActionResult<Produit>> GetProduits(int id)
         {
+
             return await _produitRepository.Get(id);
         }
 
+        //[HttpPost("add")]
+        //public async Task<ActionResult<Produit>> PostProduits([FromBody] Produit produit)
+        //{
+        //    var newProduit = await _produitRepository.Create(produit);
+        //    return CreatedAtAction(nameof(GetProduits), new { id = newProduit.Id }, newProduit);
+        //}
+
         [HttpPost]
-        public async Task<ActionResult<Produit>> PostProduits([FromBody] Produit produit)
+        public void PostProduits([FromForm] Produit produit, IFormFile image)
         {
-            var newProduit = await _produitRepository.Create(produit);
-            return CreatedAtAction(nameof(GetProduits), new { id = newProduit.Id }, newProduit);
+            var pathImage = Path.Combine(_env.WebRootPath, "Images", image.FileName);
+            var streamImage = new FileStream(pathImage, FileMode.Append);
+            image.CopyTo(streamImage);
+
+            var newProduit = new Produit
+            {
+                Id = produit.Id,
+                NameProduit = produit.NameProduit,
+                PrixProduit = produit.PrixProduit,
+                Quantite = produit.Quantite,
+                ImagePath = image.FileName,
+                CatégorieId = produit.CatégorieId
+            };
+
+            _produitRepository.addProduit(newProduit);
         }
 
-        [HttpPut]
+        [HttpPut("update")]
         public async Task<ActionResult<Produit>> PutProduits(int id, [FromBody] Produit produit)
         {
+          
+
             if (id != produit.Id)
             {
                 return BadRequest();
             }
             await _produitRepository.Update(produit);
-            return NoContent();
+            return Ok(produit);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Produit>> Delete(int id)
+        [HttpDelete("delete")]
+        public async Task<IEnumerable<Produit>> Delete(int id)
         {
             var produitToDelete = await _produitRepository.Get(id);
             if (produitToDelete == null)
-                return NotFound();
+
+                return null;
 
             await _produitRepository.Delete(produitToDelete.Id);
-            return NoContent();
+            return await GetProduits();
         }
 
 
-        [Route("SaveFile")]
-        [HttpPost]
-        public JsonResult SaveFile()
-        {
-            try
-            {
-                var httpRequest = Request.Form;
-                var postedFile = httpRequest.Files[0];
-                string filename = postedFile.FileName;
-                var physicalPath = _env.ContentRootPath + "/Photos/" + filename;
-
-                using (var stream = new FileStream(physicalPath, FileMode.Create))
-                {
-                    postedFile.CopyTo(stream);
-                }
-
-                return new JsonResult(filename);
-            }
-            catch (Exception)
-            {
-
-                return new JsonResult("anonymous.png");
-            }
-        }
+        
 
     }
 }
