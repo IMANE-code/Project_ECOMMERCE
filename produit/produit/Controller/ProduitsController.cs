@@ -47,7 +47,7 @@ namespace produit.Controller
         //    return CreatedAtAction(nameof(GetProduits), new { id = newProduit.Id }, newProduit);
         //}
 
-        [HttpPost]
+        [HttpPost("addproduct")]
         public void PostProduits([FromForm] Produit produit, IFormFile image)
         {
             var pathImage = Path.Combine(_env.WebRootPath, "Images", image.FileName);

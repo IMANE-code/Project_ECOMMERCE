@@ -14,7 +14,7 @@ namespace produit.Models
 
         public string NameCatégorie { get; set; }
 
-        public byte[] ImageCatégorie { get; set; } 
-       
+        public string ImagePath { get; set; }
+
     }
 }

@@ -11,7 +11,7 @@ namespace produit.Repositorie
         Task<IEnumerable<Commande>> Get();
         Task<Commande> Get(int id);
         Task<Commande> Create(Commande commande);
-        Task Update(Commande catégorie);
+        Task Update(Commande commande);
         Task Delete(int id);
     }
 }

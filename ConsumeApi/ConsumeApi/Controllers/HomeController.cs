@@ -22,6 +22,17 @@ namespace ConsumeApi.Controllers
         {
             return View();
         }
+
+        public IActionResult Test()
+        {
+            return View();
+        }
+
+        public IActionResult Imad()
+        {
+            return View();
+        }
+
         public IActionResult Add()
         {
             return View();

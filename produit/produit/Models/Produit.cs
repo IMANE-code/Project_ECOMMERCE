@@ -16,7 +16,7 @@ namespace produit.Models
 
         public int Id { get; set; }
 
-        public string NameProduit { get; set; }
+        public string NameProduit { get; set; } 
 
         public float PrixProduit { get; set; }
 
