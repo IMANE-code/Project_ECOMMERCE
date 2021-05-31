@@ -1,0 +1,257 @@
+﻿@{
+    ViewData["Title"] = "produit";
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var listProd = $('#listProd');
+
+        $(document).ready(function () {
+            $.ajax({
+
+                url: 'https://localhost:44318/api/produits/getall',
+                method: 'get',
+                contentType: "application/x-www-form-urlencoded",
+                success: function (data) {
+                    console.log(data);
+                    listProd.empty();
+                    $.each(data, function (index, val) {
+                        var id = val.id;
+                        var image = val.imagePath;
+                        var nameProduit = val.nameProduit.toUpperCase();
+                        var prixProduit = val.prixProduit;
+                        var quantite = val.quantite;
+                        var categorie = val.catégorie.nameCatégorie;
+
+                        console.log(data);
+                        
+                        listProd.append('<tr id="tabletr"><td>'
+                            + id + '</td> <td style="padding:1px"> <img width="100%" height="100px" src="https://localhost:44318/images/'+image+'" alt="Italian Trulli"> </td> <td>'
+                             
+                            + nameProduit + '</td> <td>'
+                            + prixProduit + '</td><td>'
+                            + quantite + '</td><td>'
+                            + categorie +
+                            '</td><td> <button onclick=editproduit("'+ id + '") class="btn btn-primary btn-xs" data-toggle="modal" data-target="#exampleModal" ><i class="fas fa-pencil-alt"></i></button> <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#ModalEdit"><i class="far fa-trash-alt"></i></button> </td></tr>')
+                    });
+                }, error: function (err) {
+                    console.log(err)
+
+                }
+            })
+        })
+    });
+
+    function editproduit(id) {
+        console.log(id);
+        var ud = 'https://localhost:44318/api/Produits/getbyid?id='+id;
+        console.log(ud);
+        $.ajax({
+            type: 'GET',
+            url: ud,
+            success: function (res) {
+
+                
+                console.log(res);
+
+                $('#getid').val(res.id);
+                $('#name').val(res.nameProduit);
+                $('#prix').val(res.prixProduit);
+                $('#quantite').val(res.quantite);
+                $('#categorie').val(res.catégorie.nameCatégorie);
+                
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('#search').keyup(function () {
+            search_table($(this).val());
+        });
+        function search_table(value) {
+            $('#employee_table #tabletr').each(function () {
+                var found = 'false';
+                $(this).each(function () {
+                    if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                        found = 'true';
+                    }
+                });
+                if (found == 'true') {
+                    $(this).show();
+                }
+                else {
+                    $(this).hide();
+                }
+            });
+        }
+    });
+
+    
+
+    
+
+    
+
+
+</script>
+<div>
+    <div class="mb-2 row container-fluid">
+        <div class="col pl-0"><a asp-controller="Home" asp-action="Add" class="btn btn-primary">Add</a></div>
+
+
+        <form class="form-inline mb-2">
+            <div class="form-group">
+                <label for="search">Search</label>
+                <input id="search" class="form-control mx-sm-3 pr-0">
+
+            </div>
+        </form>
+
+        <table class="display table table-bordered" id="employee_table">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">nameProduit</th>
+                    <th scope="col">prixProduit</th>
+                    <th scope="col">quantite</th>
+                    <th scope="col">catégorie</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="listProd">
+            </tbody>
+        </table>
+
+        <!-- Modal edit -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modifier info produit</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form>
+                            <div>
+                                <div class="col mb-3">
+                                    <input id="getid" type="text" class="form-control" placeholder="id">
+                                </div>
+                                <div class="col mb-3">
+                                    <input id="name" type="text" class="form-control" placeholder="name">
+                                </div>
+                                <div class="col mb-3">
+                                    <input id="prix" type="text" class="form-control" placeholder="prix">
+                                </div>
+                                <div class="col mb-3">
+                                    <input id="quantite" type="text" class="form-control" placeholder="quantite">
+                                </div>
+                                <div class="col">
+                                    <input id="categorie" type="text" class="form-control" placeholder="Categorie">
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="Save" type="button" class="btn btn-primary" data-dismiss="modal">Enregistrer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal delete -->
+        <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Etes-vous sûr de vouloir suprimmer ce produit ?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form>
+
+                            <div><label>Name : </label><span> Name</span></div>
+                            <div><label>Prix : </label><span> Prix</span></div>
+                            <div><label>Quantité : </label><span> Quantité</span></div>
+                            <div><label>Catégorie : </label><span> Catédorie</span></div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger">Oui</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        @*$('#Save').load('/');*@
+
+        $('#Save').click(function () {
+
+            var id = $('#getid').val();
+            var nameProduit = $('#name').val();
+            var prixProduit = $('#prix').val();
+            var quantite = $('#quantite').val();
+            var catégorieId = $('#categorie').val();
+
+            var ud = 'https://localhost:44318/api/Produits/update?id=' + id;
+            console.log(ud);
+
+            console.log({ NameProduit: nameProduit, PrixProduit: prixProduit, Quantite: quantite, CatégorieId: catégorieId })
+
+            var jsonobj = { NameProduit: nameProduit, PrixProduit: prixProduit, Quantite: quantite, CatégorieId: catégorieId , id : id};
+            $.ajax({
+                url: ud,
+                data: JSON.stringify(jsonobj),
+                method: 'Put',
+                contentType: "application/json;charset=utf-8;",
+                dataType: 'json',
+                
+
+                success: function (res) {
+                    console.log("succes");
+                    @*$("#listProd").val("");
+                    for (r in res) {
+                        listProd.append('<tr id="tabletr"><td>'
+                            + res[r].id + '</td> <td>'
+                            + res[r].nameProduit + '</td> <td>'
+                            + res[r].prixProduit + '</td><td>'
+                            + res[r].quantite + '</td><td>'
+                            + res[r].categorie +
+                            '</td><td> <button onclick=editproduit("' + id + '") class="btn btn-primary btn-xs" data-toggle="modal" data-target="#exampleModal" ><i class="fas fa-pencil-alt"></i></button> <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#ModalEdit"><i class="far fa-trash-alt"></i></button> </td></tr>')
+                    }*@
+
+                },
+                error: function (err) {
+                    console.log('non');
+                    alert(message.err);
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+

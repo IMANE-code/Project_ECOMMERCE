@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/jquery/dist/jquery.js" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var listProd = $('#listProd');
+
+            $('#btn').click(function () {
+                $.ajax({
+
+                    url: 'https://localhost:44318/api/Produits',
+                    method: 'get',
+                    contentType: "application/x-www-form-urlencoded",
+                    success: function (data) {
+                        console.log(data)
+                        listProd.empty();
+                        $.each(data, function (index, val) {
+                            var id = val.id;
+                            var nameProduit = val.nameProduit;
+                            var prixProduit = val.prixProduit;
+                            var quantite = val.quantite;
+                            var categorie = val.catégorie.nameCatégorie;
+                            console.log(categorie);
+                            listProd.append('<tr><td>' + id + '</td> <td>' + nameProduit + '</td> <td>' + prixProduit + '</td><td>' + quantite + '</td><td>' + categorie + '</td><td><a href="EditProduit.html" class="btn btn-success">Edit</a> || <a href="EditProduit.html" class="btn btn-danger">Delete</a></td></tr>')
+                        });
+                    }, error: function (err) {
+                        console.log(err)
+
+                    }
+                })
+            })
+        });
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <input type="button" id="btn" class="btn btn-primary" value="get all product" />
+        <input type="button" id="btnClear" class="btn btn-primary" value="Clear all product" />
+        <a href="AddProduit.html" class="btn btn-primary">Add</a>
+    </div>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">nameProduit</th>
+                <th scope="col">prixProduit</th>
+                <th scope="col">quantite</th>
+                <th scope="col">catégorie</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody id="listProd">
+        </tbody>
+    </table>
+</body>
+</html>
